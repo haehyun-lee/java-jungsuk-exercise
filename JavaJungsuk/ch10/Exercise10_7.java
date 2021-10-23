@@ -4,10 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+//2016년 12월 넷째주 화요일의 날짜 - Calendar, SimpleDateFormat
 public class Exercise10_7 {
-
 	public static void main(String[] args) {
-		//2016년 12월 넷째주 화요일의 날짜
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, 2016);					//연
 		cal.set(Calendar.MONTH, 11);					//월(0~11, 0:1월)
