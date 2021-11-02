@@ -3,6 +3,8 @@ Java의 정석 예제 및 연습문제 풀이
 
 ![JavaJungSuk](http://image.kyobobook.co.kr/images/book/xlarge/032/x9788994492032.jpg "JavaJungSuk")
 
+<img src="http://image.kyobobook.co.kr/images/book/xlarge/032/x9788994492032.jpg"  width="200" height="400"/>
+
 * CP2.  변수(Variable)
 * CP3.  연산자(Operator)
 * CP4.  조건문과 반복문
