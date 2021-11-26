@@ -21,7 +21,7 @@ public class Bingo {
 			for(int j=0; j<board[i].length; j++) {
 				board[i][j] = Integer.parseInt(it.next().toString());	//next() 반환 값은 Object
 				System.out.print(String.format("%3d", board[i][j]));
-//				System.out.print(board[i][j] > 10 ? " " : "  " + board[i][j]);
+//				System.out.print(board[i][j] > 10 ? " " : "  " + board[i][j])E
 			}
 			System.out.println();
 		}
