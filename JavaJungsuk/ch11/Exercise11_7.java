@@ -1,19 +1,18 @@
 package ch11;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 
 // ArraysList & Comparator, compare
-class Student {
+class Student3 {
     String name;
     int ban;
     int no;
     int kor, eng, math;
 
-    Student(String name, int ban, int no, int kor, int eng, int math){
+    Student3(String name, int ban, int no, int kor, int eng, int math){
         this.name = name;
         this.ban = ban;
         this.no = no;
@@ -46,9 +45,9 @@ class Student {
 class BanNoAscending implements Comparator {
     @Override
     public int compare(Object o1, Object o2) {
-        if (o1 instanceof Student && o2 instanceof Student) {
-            Student std1 = (Student)o1;
-            Student std2 = (Student)o2;
+        if (o1 instanceof Student3 && o2 instanceof Student3) {
+            Student3 std1 = (Student3)o1;
+            Student3 std2 = (Student3)o2;
             // 반이 같을 경우 no 오름차순, 다를 경우 그대로 ban 오름차순
             if (std1.ban != std2.ban) {
                 return std1.ban - std2.ban;
@@ -63,12 +62,12 @@ class BanNoAscending implements Comparator {
 
 public class Exercise11_7 {
     public static void main(String[] args) {
-        ArrayList<Student> list = new ArrayList<>();
-        list.add(new Student("이자바", 2, 1, 70, 90, 70));
-        list.add(new Student("안자바", 2, 2, 60, 100, 100));
-        list.add(new Student("홍길동", 1, 3, 100, 100, 100));
-        list.add(new Student("남궁성", 1, 1, 90, 70, 80));
-        list.add(new Student("김자바", 1, 2, 80, 80, 90));
+        ArrayList<Student3> list = new ArrayList<>();
+        list.add(new Student3("이자바", 2, 1, 70, 90, 70));
+        list.add(new Student3("안자바", 2, 2, 60, 100, 100));
+        list.add(new Student3("홍길동", 1, 3, 100, 100, 100));
+        list.add(new Student3("남궁성", 1, 1, 90, 70, 80));
+        list.add(new Student3("김자바", 1, 2, 80, 80, 90));
 
         Collections.sort(list, new BanNoAscending());
 
