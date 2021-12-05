@@ -14,3 +14,5 @@ public class FileViewer {
         }
     }
 }
+
+//D:\eclipse-workspace\JavaJungsuk\bin>java ch15.FileViewer ch15/text.txt
