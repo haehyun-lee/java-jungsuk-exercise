@@ -1,71 +1,70 @@
 package ch11;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
 // Vector 클래스 구현
-public class MyVector {
-    Object[] data;   // 데이터 저장용 객체배열
-    int capacity;       // 용량
+public class MyVector implements List {
+    Object[] data = null;   // 객체 배열
+    int capacity = 0;       // 용량
     int size = 0;           // 크기
 
-    // 생성자(용량)
-    public MyVector(int capacity){
+    public MyVector(int capacity) {
         if (capacity < 0) {
             throw new IllegalArgumentException("유효하지 않은 값입니다. :" + capacity);
         }
-
         this.capacity = capacity;
         data = new Object[capacity];
     }
 
-    public MyVector(){
-        this(10);       //크기를 지정하지 않을 시 기본 용량 10으로 생성
+    public MyVector() {
+        this(10);
     }
 
-    // 최소한의 용량(capacity) 확보
     public void ensureCapacity(int minCapacity) {
-        // 용량이 초과할 경우
         if (minCapacity - data.length > 0) {
             setCapacity(minCapacity);
         }
     }
 
-    // 추가
-    public boolean add(Object obj) {
+    @Override
+    public boolean add(Object o) {
         ensureCapacity(size + 1);
-        data[size++] = obj;
+        data[size++] = o;
         return true;
     }
 
-    // 값 반환
+    @Override
     public Object get(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("범위를 벗어났습니다.");
-        }
+        if (index < 0 || index >= size)
+            throw new IndexOutOfBoundsException("범위를 벗어났습니다.");      // 메서드 실행 및 성공 여부를 파악하기 위해 부적절한 경우에는 예외 날리기
+
         return data[index];
     }
 
-    // 삭제(인덱스)
+    @Override
     public Object remove(int index) {
-        Object oldObj;
+        Object oldObj = null;
 
-        if (index < 0 || index >= size) {
+        if (index < 0 || index >= size)
             throw new IndexOutOfBoundsException("범위를 벗어났습니다.");
-        }
         oldObj = data[index];
 
-        // 삭제하려는 객체가 마지막 요소가 아닐 경우, 빈자리 채우기
         if (index != size - 1) {
-            System.arraycopy(data, index + 1, data, index, size - 1 - index);
+            System.arraycopy(data, index + 1, data, index, size - index - 1);
         }
+
         data[size-1] = null;
         size--;
-
         return oldObj;
     }
-
-    // 삭제(처음으로 일치하는 객체)
-    public boolean remove(Object obj) {
+    
+    @Override
+    public boolean remove(Object o) {
         for (int i = 0; i < size; i++) {
-            if (obj.equals(data[i])) {
+            if (o.equals(data[i])) {
                 remove(i);
                 return true;
             }
@@ -73,39 +72,116 @@ public class MyVector {
         return false;
     }
 
-    // 용량(capacity)을 실제 크기(size)에 맞추기
     public void trimToSize() {
         setCapacity(size);
     }
-    
-    // 용량 변경
-    public void setCapacity(int capacity) {
-        if (this.capacity == size) {
-            return;
-        }
-        
-        // 더 큰 크기로 새로 배열 생성해서 기존 데이터 옮기기
+
+    private void setCapacity(int capacity) {
+        if(this.capacity == capacity) return;
+
+        // 객체 배열 새로 생성 후 데이터 복사, 기존 배열을 새로운 배열로 대체
         Object[] tmp = new Object[capacity];
         System.arraycopy(data, 0, tmp, 0, size);
         data = tmp;
         this.capacity = capacity;
     }
 
-    // 모든 데이터 제거
+    @Override
     public void clear() {
-        // data = null은 가리키는 배열 자체를 없애는 것, 빈 배열을 만들기 위해서는 각 요소를 null로
         for (int i = 0; i < size; i++) {
             data[i] = null;
         }
         size = 0;
     }
 
-    // 배열로 반환
-    public Object[] toArray() {
-        // data배열 그 자체를 넘기는 것이 아니라, 같은 값을 가진 복제 배열을 반환
+    @Override
+    public Object[] toArray(Object[] a) {
         Object[] result = new Object[size];
         System.arraycopy(data, 0, result, 0, size);
 
         return result;
+    }
+
+    @Override
+    public int size() { return size; }
+    @Override
+    public boolean isEmpty() { return size ==0; }
+    public int capacity() { return capacity; }
+    
+
+    // List 인터페이스로부터 상속받았으나 직접 구현하지 않은 메서드들
+    @Override
+    public boolean contains(Object o) {
+        return false;
+    }
+
+    @Override
+    public Iterator iterator() {
+        return null;
+    }
+
+    @Override
+    public Object[] toArray() {
+        return new Object[0];
+    }
+    
+    @Override
+    public boolean addAll(Collection c) {
+        return false;
+    }
+
+    @Override
+    public boolean addAll(int index, Collection c) {
+        return false;
+    }
+
+    @Override
+    public Object set(int index, Object element) {
+        return null;
+    }
+
+    @Override
+    public void add(int index, Object element) {
+
+    }
+
+    @Override
+    public int indexOf(Object o) {
+        return 0;
+    }
+
+    @Override
+    public int lastIndexOf(Object o) {
+        return 0;
+    }
+
+    @Override
+    public ListIterator listIterator() {
+        return null;
+    }
+
+    @Override
+    public ListIterator listIterator(int index) {
+        return null;
+    }
+
+    @Override
+    public List subList(int fromIndex, int toIndex) {
+        return null;
+    }
+
+    @Override
+    public boolean retainAll(Collection c) {
+        return false;
+    }
+
+    @Override
+    public boolean removeAll(Collection c) {
+        return false;
+    }
+
+    @Override
+    public boolean containsAll(Collection c) {
+        return false;
     }
 }
